@@ -2,21 +2,15 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::prefix('contact')->group(function () {
-    Route::get('/', function () {
-        return view('contact');
-    })->name('contact-form');
-    Route::post('/', function (Request $request) {
-        $namer = $request->input('name');
-        $email= $request->input('email');
-        return redirect('contact')->withInput()
-        ->with('success','Thành công')
-        ->with('name',$namer)
-        ->with('email',$email);
-    })->name('contact-submit');
 
+Route::get('/home', function () {
+    return view('home');
 });
+
+Route::resource('posts', PostController::class);
+Route::resource('categories', CategoryController::class);
